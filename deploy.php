@@ -4,7 +4,7 @@ namespace Deployer;
 require 'recipe/laravel.php';
 
 // Project name
-set('application', 'my_project');
+set('application', 'WEB701-practice');
 
 // Project repository
 set('repository', 'https://github.com/hiroshishu/WEB701-practice.git');

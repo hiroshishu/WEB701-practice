@@ -11,5 +11,7 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js').extra(['vue'])
-   .sass('resources/sass/app.scss', 'public/css');
+mix.js('resources/js/app.js', 'public/js')
+   .extract(['vue'])
+   .sass('resources/sass/app.scss', 'public/css')
+   .browserSync('web701.test');

@@ -15,6 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', function(){
+    return view('dashboard');
+});
+
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/addmoney/stripe', array('as' => 'addmoney.paywithstripe', 'uses' => 'AddMoneyController@payWithStripe'));
+
+Route::post('addmoney/stripe', array('as' => 'addmoney.stripe','uses' => 'AddMoneyController@postPaymentWithStripe'));
