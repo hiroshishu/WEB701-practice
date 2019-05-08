@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -22,24 +22,24 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            $table->string('braintree_id')->nullable();
-            $table->string('paypal_email')->nullable();
-            $table->string('card_brand')->nullable();
-            $table->string('card_last_four')->nullable();
-            $table->timestamp('trial_ends_at')->nullable();
+            // $table->string('braintree_id')->nullable();
+            // $table->string('paypal_email')->nullable();
+            // $table->string('card_brand')->nullable();
+            // $table->string('card_last_four')->nullable();
+            // $table->timestamp('trial_ends_at')->nullable();
         });
 
-        Schema::create('subscriptions', function ($table) {
-            $table->increments('id');
-            $table->unsignedInteger('user_id');
-            $table->string('name');
-            $table->string('braintree_id');
-            $table->string('braintree_plan');
-            $table->integer('quantity');
-            $table->timestamp('trial_ends_at')->nullable();
-            $table->timestamp('ends_at')->nullable();
-            $table->timestamps();
-        });
+        // Schema::create('subscriptions', function ($table) {
+        //     $table->increments('id');
+        //     $table->unsignedInteger('user_id');
+        //     $table->string('name');
+        //     $table->string('braintree_id');
+        //     $table->string('braintree_plan');
+        //     $table->integer('quantity');
+        //     $table->timestamp('trial_ends_at')->nullable();
+        //     $table->timestamp('ends_at')->nullable();
+        //     $table->timestamps();
+        // });
     }
 
     /**

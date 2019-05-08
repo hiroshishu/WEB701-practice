@@ -38,4 +38,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //User-Item: one-many
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+
+    //User-Bid: one-many
+    public function bids()
+    {
+        return $this->hasMany(Bid::class);
+    }
 }
