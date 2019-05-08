@@ -22,7 +22,7 @@ add('writable_dirs', []);
 
 // Hosts
 
-host('beta')
+host('practice')
     ->hostname('newsimland.com')
     ->user('Hao-Zhu')
     ->set('deploy_path', '~');    
@@ -30,7 +30,7 @@ host('beta')
 // Tasks
 
 task('build', function () {
-    run('cd {{release_path}} && build');
+    run('');
 });
 
 // [Optional] if deploy fails automatically unlock.
