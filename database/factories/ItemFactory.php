@@ -4,9 +4,9 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Item::class, function (Faker $faker) {
     return [
-        'user_id'       => $faker->numberBetween($min=1, $max=200),
+        'user_id'       => $faker->numberBetween($min=1, $max=100),
         'category_id'   => $faker->numberBetween($min=1, $max=5),
-        'title'         => $faker->randomElement($array = array('Strawberry', 'Raspberry', 'Cranberry', 'BlueBerry', 'BlackBerry')).': '.$faker->sentence,
+        'title'         => $faker->sentence,
         'description'   => $faker->text($maxNbChars = 200),
         'quantiti'      => $faker->randomDigit,
 
