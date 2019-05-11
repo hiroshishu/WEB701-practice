@@ -11,7 +11,17 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+mix.webpackConfig({
+   resolve: {
+      extensions: ['.js', '.vue'],
+   },
+   externals: {
+      // vue: 'Vue',
+      // 'vue-router': 'vue-router'
+   }
+});
+
+mix.js('resources/js/home.js', 'public/js')
    .extract(['vue'])
    .sass('resources/sass/app.scss', 'public/css')
    .browserSync('web701.test');

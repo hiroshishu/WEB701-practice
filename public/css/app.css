@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Work+Sans);@charset "UTF-8";
 
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
@@ -72,7 +72,7 @@ body {
   line-height: 1.6;
   color: #212529;
   text-align: left;
-  background-color: #f8fafc;
+  background-color: #fff;
 }
 
 [tabindex="-1"]:focus {
@@ -517,7 +517,7 @@ mark,
 
 .img-thumbnail {
   padding: 0.25rem;
-  background-color: #f8fafc;
+  background-color: #fff;
   border: 1px solid #dee2e6;
   border-radius: 0.25rem;
   max-width: 100%;
@@ -4095,15 +4095,15 @@ input[type=button].btn-block {
 }
 
 .custom-range:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 1px #f8fafc, 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
 }
 
 .custom-range:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 1px #f8fafc, 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
 }
 
 .custom-range:focus::-ms-thumb {
-  box-shadow: 0 0 0 1px #f8fafc, 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
 }
 
 .custom-range::-moz-focus-outer {
@@ -4303,8 +4303,8 @@ input[type=button].btn-block {
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
   color: #495057;
-  background-color: #f8fafc;
-  border-color: #dee2e6 #dee2e6 #f8fafc;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
 }
 
 .nav-tabs .dropdown-menu {
@@ -10655,12 +10655,9 @@ a.text-dark:focus {
   }
 }
 
-.navbar-brand {
-  color: #e3342f !important;
-}
-
-.navbar-brand span {
-  font-family: "Dancing Script", cursive;
+ul {
+  margin: 0;
+  padding: 0;
 }
 
 .navbar-laravel {
@@ -10668,48 +10665,28 @@ a.text-dark:focus {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-.berry-wrap {
-  background: #fff;
-}
-
-.berry-wrap .berry-banner {
-  height: 450px;
-  background: url(/images/berry-banner.jpg) center no-repeat;
-  background-size: cover;
-  border-top: 4px solid #e3342f;
+.img-box {
   position: relative;
-  text-align: center;
-  color: #fff;
+  height: 0;
+  padding-top: 100%;
+  background: #f4f4f4;
 }
 
-.berry-wrap .berry-banner:before {
+.img-box:before {
   content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.img-box a,
+.img-box span {
   position: absolute;
-  left: 0;
-  top: 0;
   width: 100%;
   height: 100%;
-  box-shadow: 0 0 1000px #e3342f inset;
-}
-
-.berry-wrap .berry-banner h1,
-.berry-wrap .berry-banner p {
-  position: relative;
-  z-index: 1;
-  top: 150px;
-  margin: 0 100px;
-  font-size: 16px;
-}
-
-.berry-wrap .berry-banner h1 {
-  margin-bottom: 16px;
-  font-size: 64px;
-  font-family: "Dancing Script", cursive;
-}
-
-.berry-wrap .berry-market li {
-  list-style: none;
-  background: black;
-  height: 300px;
+  top: 0;
+  left: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
