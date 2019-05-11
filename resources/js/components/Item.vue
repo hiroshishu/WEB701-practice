@@ -15,7 +15,7 @@
                 </form>
                 <p class="text-secondary">Close at: {{itemInfo.end_time}}</p>
 
-                <h5 class="mt-5">Description:</h5>
+                <h5 class="mt-5">Description</h5>
                 <p class="text-secondary">{{itemInfo.description}}</p>
 
                 <dl class="quality my-5 clearfix">
@@ -68,9 +68,6 @@
                 itemId: this.$route.params.id
             }
         },
-        watch: {
-            
-        },
         created() {
             this.fetchCategories().then(()=>{
                 this.fetchItemOne(this.itemId)
@@ -92,6 +89,7 @@
 
         },
         mounted() {
+            $("html, body").stop().animate({scrollTop: 0});
             console.log('Component mounted.')
         }
     }

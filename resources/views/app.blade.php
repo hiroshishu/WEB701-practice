@@ -5,7 +5,5 @@
 @endsection
 
 @push('scripts')
-
-<script src="/js/home.js"></script>
-
+<script src="/js/app.js"></script>
 @endpush

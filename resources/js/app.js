@@ -28,7 +28,7 @@ Vue.prototype.$http = axios;
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import router from './routes_home';
+import router from './routes';
 import VueRouter from 'vue-router';
 
 Vue.use(VueRouter)
