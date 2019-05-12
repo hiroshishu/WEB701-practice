@@ -7,7 +7,12 @@
 
 import './bootstrap';
 import Vue from 'vue';
-Vue.prototype.$http = axios;
+
+if(API_TOKEN) {
+    // let token = JSON.parse(API_TOKEN.replace(/&quot;/g, '"'));
+    window.axios.defaults.headers.common['Authorization'] = 'Bearer '+API_TOKEN;
+}
+Vue.prototype.$http = window.axios;
 
 /**
  * The following block of code may be used to automatically register your

@@ -29,12 +29,19 @@ const router = new VueRouter({
         {
             path: '/dashboard',
             name: 'dashboard',
-            component: Dashboard
+            component: Dashboard,
+            beforeEnter(to, from, next){
+                API_TOKEN ? next() : (location.href="/login");
+                
+            }
         },
         {
             path: '/addnew',
             name: 'addnew',
-            component: AddNew
+            component: AddNew,
+            beforeEnter(to, from, next){
+                API_TOKEN ? next() : (location.href="/login");
+            }
         }
     ]
 })

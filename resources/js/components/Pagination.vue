@@ -6,7 +6,7 @@
             </router-link>
         </li>
 
-        <li class="page-item" v-for="i in itemList.last_page" :class="{'disabled': i==itemList.current_page}">
+        <li class="page-item" v-for="i in itemList.last_page" v-bind:key="i" :class="{'disabled': i==itemList.current_page}">
             <router-link class="page-link" :to="{query: {cat: currCat, page: i}}" v-text="i"></router-link>
         </li>
         

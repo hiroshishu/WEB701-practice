@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Item;
+use App\User;
+use Carbon\Carbon;
+
 
 class ItemController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('auth:api')->except(['index', 'show']);
     }
 
      /**
@@ -41,17 +44,27 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $request->validate([
             'category_id'   =>  'required',
-            'title'         =>  'required',
-            'author'        =>  'required',
-            'image'         =>  'required',
-            'status'        =>  'required',
-            'click_count'   =>  'required',
-            'descr'         =>  'nullable',
-            'content'       =>  'required'
+            'user_id'       =>  'required',
+            'title'         =>  'required|max:100',
+            'description'   =>  'required|max:250',
+            'size'          =>  'required',
+            'color'         =>  'required',
+            'flavor'        =>  'required',
+            'phone'         =>  'nullable',
+            'address'       =>  'required',
+            'end_time'      =>  'required',
+            'price'         =>  'required',
+            'quantiti'      =>  'required',
         ]);
-
+        $item = new Item;
+        foreach ($request->request as $k => $v) {
+            $item[$k] = $v;
+        }
+        $item->end_time = Carbon::now()->addDays($request->end_time);
+        $item->save();
+        return $item;
     }
 
     /**
@@ -62,7 +75,9 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        return Item::find($id);
+        $item = Item::find($id);
+        $item->user_name = User::find($item->user_id)->name;
+        return $item;
     }
 
     /**

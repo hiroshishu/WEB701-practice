@@ -15,9 +15,11 @@ Route::get('/', function () {
     return view('app');
 });
 
+
 Route::get('/dashboard', function () {
     return redirect('/#/dashboard');
 });
+
 
 Auth::routes();
 

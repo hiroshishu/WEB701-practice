@@ -1,17 +1,24 @@
 <template>
-    <div class="container dashboard">
-        <aside class="col-3">
-            
-        </aside>
+    <dashboard-layout>
+        <h3>Dashboard</h3>
 
-       <div class="col main">
-
-       </div>
-    </div>
+    </dashboard-layout>
 </template>
 
 <script>
+
+import dashboardLayout from './DashboardLayout';
+
 export default {
-    
+
+    data() {
+        return {
+
+        }
+    },
+
+    components: {
+        dashboardLayout
+    }
 }
 </script>

@@ -20,7 +20,6 @@ class CreateItemsTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->integer('quantiti')->unsigned();
-            $table->string('slug')->unique()->index();
             $table->dateTime('end_time');
             
             $table->integer('size')->unsigned();

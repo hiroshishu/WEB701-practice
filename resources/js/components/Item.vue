@@ -27,7 +27,7 @@
 
                 <dl class="grower my-5">
                     <dt class="pb-2"><h5>Grower</h5></dt>
-                    <dd class="text-secondary"><b>Name: </b> {{itemInfo.color}}</dd>
+                    <dd class="text-secondary"><b>Name: </b> {{itemInfo.user_name}}</dd>
                     <dd class="text-secondary"><b>Phone: </b> {{itemInfo.phone}}</dd>
                     <dd class="text-secondary"><b>Address: </b> {{itemInfo.address}}</dd>
                 </dl>
