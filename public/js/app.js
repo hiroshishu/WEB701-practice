@@ -6757,7 +6757,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".berry-banner {\n  padding: 7.5rem 0;\n  background: url(/images/index-bg.jpg) center right no-repeat;\n  background-size: 40%;\n}\n.berry-banner h1 {\n  font-family: \"Work Sans\", sans-serif;\n}", ""]);
+exports.push([module.i, ".berry-banner {\n  padding: 7.5rem 0;\n  background: url() center right no-repeat;\n  background-size: 40%;\n}\n.berry-banner h1 {\n  font-family: \"Work Sans\", sans-serif;\n}", ""]);
 
 // exports
 
@@ -38870,19 +38870,26 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "berry-banner " }, [
-      _c("div", { staticClass: "content w-50" }, [
-        _c("h1", [
-          _vm._v("Nelson branch of Independent Berry Growers New Zealand")
-        ]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v(
-            "Curabitur pulvinar odio consequat, sollicitudin velit in, eleifend nulla. Phasellus fringilla mi sit amet diam porta hendrerit. Phasellus porttitor ultricies porta. Etiam vitae hendrerit diam. Nunc malesuada enim sapien, nec volutpat lectus ullamcorper quis. "
-          )
+    return _c(
+      "div",
+      {
+        staticClass: "berry-banner ",
+        staticStyle: { "background-image": "url(./images/index-bg.jpg)" }
+      },
+      [
+        _c("div", { staticClass: "content w-50" }, [
+          _c("h1", [
+            _vm._v("Nelson branch of Independent Berry Growers New Zealand")
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "Curabitur pulvinar odio consequat, sollicitudin velit in, eleifend nulla. Phasellus fringilla mi sit amet diam porta hendrerit. Phasellus porttitor ultricies porta. Etiam vitae hendrerit diam. Nunc malesuada enim sapien, nec volutpat lectus ullamcorper quis. "
+            )
+          ])
         ])
-      ])
-    ])
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -39001,7 +39008,7 @@ var render = function() {
           _c("span", {
             style:
               _vm.itemInfo.category_id &&
-              "background-image:url(/images/cat_" +
+              "background-image:url(./images/cat_" +
                 _vm.itemInfo.category_id +
                 ".png)"
           })
@@ -39072,7 +39079,7 @@ var render = function() {
         [
           _c("router-link", {
             style:
-              "background-image:url(/images/cat_" +
+              "background-image:url(./images/cat_" +
               _vm.item.category_id +
               ".png)",
             attrs: { to: "/item/" + _vm.item.id }
@@ -39469,10 +39476,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 if (API_TOKEN) {
-  // let token = JSON.parse(API_TOKEN.replace(/&quot;/g, '"'));
   window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + API_TOKEN;
 }
 
+window.axios.defaults.baseURL = './';
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$http = window.axios;
 /**
  * The following block of code may be used to automatically register your

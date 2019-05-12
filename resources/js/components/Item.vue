@@ -34,7 +34,7 @@
             </div>
             <div class="col img overflow-hidden">
                 <div class="img-box">
-                    <span :style="itemInfo.category_id&&'background-image:url(/images/cat_'+ itemInfo.category_id +'.png)'"></span>
+                    <span :style="itemInfo.category_id&&'background-image:url(./images/cat_'+ itemInfo.category_id +'.png)'"></span>
                 </div>
             </div>
         </div>

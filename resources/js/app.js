@@ -9,9 +9,9 @@ import './bootstrap';
 import Vue from 'vue';
 
 if(API_TOKEN) {
-    // let token = JSON.parse(API_TOKEN.replace(/&quot;/g, '"'));
     window.axios.defaults.headers.common['Authorization'] = 'Bearer '+API_TOKEN;
 }
+window.axios.defaults.baseURL = './';
 Vue.prototype.$http = window.axios;
 
 /**

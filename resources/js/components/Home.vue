@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="berry-banner ">
+        <div class="berry-banner " style="background-image:url(./images/index-bg.jpg)">
             <div class="content w-50">
                 <h1>Nelson branch of Independent Berry Growers New Zealand</h1>
                 <p>Curabitur pulvinar odio consequat, sollicitudin velit in, eleifend nulla. Phasellus fringilla mi sit amet diam porta hendrerit. Phasellus porttitor ultricies porta. Etiam vitae hendrerit diam. Nunc malesuada enim sapien, nec volutpat lectus ullamcorper quis. </p>
@@ -63,7 +63,7 @@
 .berry-banner 
 {
     padding: 7.5rem 0;
-    background: url(/images/index-bg.jpg) center right no-repeat;
+    background: url() center right no-repeat;
     background-size: 40%;
     h1  {
         font-family: 'Work Sans', sans-serif;

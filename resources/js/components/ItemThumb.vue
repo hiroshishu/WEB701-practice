@@ -2,7 +2,7 @@
     <li class="float-left mb-1 item-info">
         <figure class="figure">
             <div class="img-box">
-                <router-link :to="'/item/'+item.id" :style="'background-image:url(/images/cat_'+ item.category_id +'.png)'">
+                <router-link :to="'/item/'+item.id" :style="'background-image:url(./images/cat_'+ item.category_id +'.png)'">
                 </router-link>
             </div>
             <figcaption class="figure-caption mt-2 text-truncate"><b>{{categories[item.category_id-1].name+': '+item.title}}</b></figcaption>

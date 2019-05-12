@@ -9,5 +9,5 @@
     const API_TOKEN = '{{Auth::user() ? Auth::user()->api_token : ''}}';
     const USER_ID = '{{Auth::id()}}';
 </script>
-<script src="/js/app.js"></script>
+<script src="{{mix('js/app.js')}}"></script>
 @endpush
