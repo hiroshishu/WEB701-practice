@@ -6,14 +6,21 @@
                 <h4>{{itemInfo.title.replace('.','')}}</h4>
                 <h5 class="my-3">Quantiti: <span class="text-secondary">{{itemInfo.quantiti}} KG</span></h5>
 
-                <h5>Start Price: <span class="text-secondary">${{itemInfo.price}}</span></h5>
-                <form class="form-inline my-3">
-                    <div class="form-group mr-3 mb-2">
-                        <input class="form-control" type="text" placeholder="Place your bid">
+                <h5 v-if="itemInfo.currentBid" class="item-price">Current Bid: <span class="text-secondary">${{itemInfo.currentBid}}</span></h5>
+                <h5 v-else class="item-price">Start Price: <span class="text-secondary">${{itemInfo.price}}</span></h5>
+
+                <p class="mb-1 mt-3" v-if="itemInfo.currentBid">Next minimum bid</p>
+                <form class="form-inline mb-2" :class="{'mt-3': !itemInfo.currentBid}">
+                    <div class="input-group mr-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input class="form-control" type="text" placeholder="Place your bid" v-model="nextBid">
                     </div>
-                    <button type="submit" class="btn btn-primary mb-2">Bid</button>
+                    <button type="submit" class="btn btn-primary" @click="makeBid">Bid</button>
                 </form>
-                <p class="text-secondary">Close at: {{itemInfo.end_time}}</p>
+                <p class="text-danger" v-if="bidError">{{bidError}}</p>
+                <p class="text-secondary">Closes at: {{itemInfo.end_time}}</p>
 
                 <h5 class="mt-5">Description</h5>
                 <p class="text-secondary">{{itemInfo.description}}</p>
@@ -64,7 +71,9 @@
         data: function(){
             return {
                 categories:[],
-                itemInfo: {title:'',},
+                itemInfo: {title:''},
+                nextBid: 0,
+                bidError: '',
                 itemId: this.$route.params.id
             }
         },
@@ -73,24 +82,51 @@
                 this.fetchItemOne(this.itemId)
             }) 
         },
+        computed:{
+            minimumBid(){
+                return  +this.itemInfo.currentBid ? +this.itemInfo.currentBid + 10 : +this.itemInfo.price;
+            }
+        },
         methods: {
             fetchCategories(){
-                return this.$http.get('/api/categories')
+                return this.$http.get('categories')
                     .then( res => {
                         this.categories = res.data
                     })
             },
             fetchItemOne(id){
-                this.$http.get('/api/items/' + id)
+                this.$http.get('items/' + id)
                     .then(res => {
                         this.itemInfo = res.data
+                        this.nextBid = this.minimumBid;
                 })
             },
-
+            makeBid(evt){
+                evt.preventDefault()
+                if(!+this.nextBid || (this.minimumBid > +this.nextBid)){
+                    this.bidError = 'You need to bid at least the minimum next bid of $' + this.minimumBid;
+                    return;
+                }
+                this.$http.post('bid/'+this.itemId, {
+                    user_id: USER_ID,
+                    amount: this.nextBid
+                }).then(res =>{
+                    this.bidError = '';
+                }).catch(err => {
+                    console.log(err.message)
+                })
+            }
         },
         mounted() {
             $("html, body").stop().animate({scrollTop: 0});
-            console.log('Component mounted.')
+
+            socket.on(`NewBid${this.itemId}`, data => {
+                this.itemInfo.currentBid = data.currentTotal;
+                this.nextBid = this.minimumBid;
+                $('.item-price').fadeOut(400).fadeIn(400);
+            });
+
+            console.log('Component mounted.');
         }
     }
 </script>

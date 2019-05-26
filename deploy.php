@@ -26,15 +26,24 @@ host('practice')
     ->hostname('newsimland.com')
     ->user('Hao-Zhu')
     ->set('deploy_path', '~');    
-    
+
+task('deploy', [
+    'deploy:prepare',
+    'deploy:release',
+    'deploy:update_code',
+    'deploy:shared',
+    // 'deploy:vendors',
+    // 'deploy:symlink',
+]);
+
 // Tasks
 
 task('build', function () {
-    run('');
+    run('cd release/1/ && cp ~/vendor.zip ./ && unzip vendor.zip');
 });
 
 // [Optional] if deploy fails automatically unlock.
-// after('deploy:failed', 'deploy:unlock');
+after('deploy:failed', 'deploy:unlock');
 
 // Migrate database before symlink new release.
 

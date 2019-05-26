@@ -23,7 +23,11 @@ class ItemController extends Controller
     public function index(Request $request)
     {
         $lastest = Item::latest()->where('end_time', '>', now());
-        return Request('cat') ? $lastest->where('category_id', Request('cat'))->paginate(15) : $lastest->paginate(15);
+        $lItems = Request('cat') ? $lastest->where('category_id', Request('cat'))->paginate(15) : $lastest->paginate(15);
+        foreach ($lItems as $k => $v) {
+            $lItems[$k]->currentBid = $lItems[$k]->currentBid() ? $lItems[$k]->currentBid()->amount : 0;;
+        }
+        return $lItems;
     }
 
     /**
@@ -76,7 +80,8 @@ class ItemController extends Controller
     public function show($id)
     {
         $item = Item::find($id);
-        $item->user_name = User::find($item->user_id)->name;
+        $item->user_name = $item->user->name;
+        $item->currentBid = $item->currentBid() ? $item->currentBid()->amount : 0;
         return $item;
     }
 

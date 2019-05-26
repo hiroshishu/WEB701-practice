@@ -23,6 +23,9 @@ Route::get('categories/', function(){
 
 Route::apiResource('items', 'ItemController');
 
+Route::post('bid/{item}', 'BidController@makeBid')
+    ->middleware('auth:api');
+
 //This one line of code will automatically generate following REST api routes for us
 //Route::get('items',           'ItemController@index');
 //Route::post('items',          'ItemController@store');

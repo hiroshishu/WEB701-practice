@@ -64,13 +64,13 @@
         },
         methods: {
             fetchCategories(){
-                return this.$http.get('/api/categories')
+                return this.$http.get('categories')
                     .then( res => {
                         this.categories = res.data
                     })
             },
             fetchItems(page, cat){
-                this.$http.get('/api/items?page=' + (page||1) + (cat ? '&cat='+cat : ''))
+                this.$http.get('items?page=' + (page||1) + (cat ? '&cat='+cat : ''))
                     .then(res => {
                         this.itemList = res.data
                 })

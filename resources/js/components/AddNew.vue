@@ -153,7 +153,7 @@ export default {
     },
     methods: {
         fetchCategories(){
-            return this.$http.get('/api/categories')
+            return this.$http.get('categories')
                 .then( res => {
                     this.categories = res.data
                 })
@@ -196,7 +196,7 @@ export default {
             }
 
             if(!this.errors.length) {
-                this.$http.post('/api/items', {
+                this.$http.post('items', {
                     user_id:        USER_ID,
                     category_id:    this.itemCat, 
                     title:          this.itemTitle,

@@ -11,7 +11,7 @@ import Vue from 'vue';
 if(API_TOKEN) {
     window.axios.defaults.headers.common['Authorization'] = 'Bearer '+API_TOKEN;
 }
-window.axios.defaults.baseURL = './';
+window.axios.defaults.baseURL = './api/';
 Vue.prototype.$http = window.axios;
 
 /**

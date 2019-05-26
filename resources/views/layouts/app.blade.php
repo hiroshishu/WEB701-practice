@@ -92,7 +92,8 @@
     <!-- JavaScripts -->
     <script src="{{mix('js/manifest.js')}}"></script>
     <script src="{{mix('js/vendor.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script>var socket = io(':6001')</script>
     @stack('scripts')
-
 </body>
 </html>

@@ -41,13 +41,13 @@
         },
         methods: {
             fetchItems(cat, page){
-                this.$http.get('/api/items?page=1')
+                this.$http.get('items?page=1')
                     .then(res => {
                         this.itemList = res.data.data
                 })
             },
             fetchCategories(){
-                return this.$http.get('/api/categories')
+                return this.$http.get('categories')
                     .then(res => {
                         this.categories = res.data
                     })

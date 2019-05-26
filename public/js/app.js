@@ -1829,7 +1829,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchCategories: function fetchCategories() {
       var _this = this;
 
-      return this.$http.get('/api/categories').then(function (res) {
+      return this.$http.get('categories').then(function (res) {
         _this.categories = res.data;
       });
     },
@@ -1873,7 +1873,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (!this.errors.length) {
-        this.$http.post('/api/items', {
+        this.$http.post('items', {
           user_id: USER_ID,
           category_id: this.itemCat,
           title: this.itemTitle,
@@ -1985,14 +1985,14 @@ __webpack_require__.r(__webpack_exports__);
     fetchItems: function fetchItems(cat, page) {
       var _this = this;
 
-      this.$http.get('/api/items?page=1').then(function (res) {
+      this.$http.get('items?page=1').then(function (res) {
         _this.itemList = res.data.data;
       });
     },
     fetchCategories: function fetchCategories() {
       var _this2 = this;
 
-      return this.$http.get('/api/categories').then(function (res) {
+      return this.$http.get('categories').then(function (res) {
         _this2.categories = res.data;
       });
     }
@@ -2074,6 +2074,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2081,6 +2088,8 @@ __webpack_require__.r(__webpack_exports__);
       itemInfo: {
         title: ''
       },
+      nextBid: 0,
+      bidError: '',
       itemId: this.$route.params.id
     };
   },
@@ -2091,25 +2100,57 @@ __webpack_require__.r(__webpack_exports__);
       _this.fetchItemOne(_this.itemId);
     });
   },
+  computed: {
+    minimumBid: function minimumBid() {
+      return +this.itemInfo.currentBid ? +this.itemInfo.currentBid + 10 : +this.itemInfo.price;
+    }
+  },
   methods: {
     fetchCategories: function fetchCategories() {
       var _this2 = this;
 
-      return this.$http.get('/api/categories').then(function (res) {
+      return this.$http.get('categories').then(function (res) {
         _this2.categories = res.data;
       });
     },
     fetchItemOne: function fetchItemOne(id) {
       var _this3 = this;
 
-      this.$http.get('/api/items/' + id).then(function (res) {
+      this.$http.get('items/' + id).then(function (res) {
         _this3.itemInfo = res.data;
+        _this3.nextBid = _this3.minimumBid;
+      });
+    },
+    makeBid: function makeBid(evt) {
+      var _this4 = this;
+
+      evt.preventDefault();
+
+      if (!+this.nextBid || this.minimumBid > +this.nextBid) {
+        this.bidError = 'You need to bid at least the minimum next bid of $' + this.minimumBid;
+        return;
+      }
+
+      this.$http.post('bid/' + this.itemId, {
+        user_id: USER_ID,
+        amount: this.nextBid
+      }).then(function (res) {
+        _this4.bidError = '';
+      }).catch(function (err) {
+        console.log(err.message);
       });
     }
   },
   mounted: function mounted() {
+    var _this5 = this;
+
     $("html, body").stop().animate({
       scrollTop: 0
+    });
+    socket.on("NewBid".concat(this.itemId), function (data) {
+      _this5.itemInfo.currentBid = data.currentTotal;
+      _this5.nextBid = _this5.minimumBid;
+      $('.item-price').fadeOut(400).fadeIn(400);
     });
     console.log('Component mounted.');
   }
@@ -2227,14 +2268,14 @@ __webpack_require__.r(__webpack_exports__);
     fetchCategories: function fetchCategories() {
       var _this2 = this;
 
-      return this.$http.get('/api/categories').then(function (res) {
+      return this.$http.get('categories').then(function (res) {
         _this2.categories = res.data;
       });
     },
     fetchItems: function fetchItems(page, cat) {
       var _this3 = this;
 
-      this.$http.get('/api/items?page=' + (page || 1) + (cat ? '&cat=' + cat : '')).then(function (res) {
+      this.$http.get('items?page=' + (page || 1) + (cat ? '&cat=' + cat : '')).then(function (res) {
         _this3.itemList = res.data;
       });
     }
@@ -38945,17 +38986,77 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("h5", [
-          _vm._v("Start Price: "),
-          _c("span", { staticClass: "text-secondary" }, [
-            _vm._v("$" + _vm._s(_vm.itemInfo.price))
-          ])
-        ]),
+        _vm.itemInfo.currentBid
+          ? _c("h5", { staticClass: "item-price" }, [
+              _vm._v("Current Bid: "),
+              _c("span", { staticClass: "text-secondary" }, [
+                _vm._v("$" + _vm._s(_vm.itemInfo.currentBid))
+              ])
+            ])
+          : _c("h5", { staticClass: "item-price" }, [
+              _vm._v("Start Price: "),
+              _c("span", { staticClass: "text-secondary" }, [
+                _vm._v("$" + _vm._s(_vm.itemInfo.price))
+              ])
+            ]),
         _vm._v(" "),
-        _vm._m(0),
+        _vm.itemInfo.currentBid
+          ? _c("p", { staticClass: "mb-1 mt-3" }, [_vm._v("Next minimum bid")])
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "form",
+          {
+            staticClass: "form-inline mb-2",
+            class: { "mt-3": !_vm.itemInfo.currentBid }
+          },
+          [
+            _c("div", { staticClass: "input-group mr-3" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.nextBid,
+                    expression: "nextBid"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: "Place your bid" },
+                domProps: { value: _vm.nextBid },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.nextBid = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { type: "submit" },
+                on: { click: _vm.makeBid }
+              },
+              [_vm._v("Bid")]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _vm.bidError
+          ? _c("p", { staticClass: "text-danger" }, [
+              _vm._v(_vm._s(_vm.bidError))
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c("p", { staticClass: "text-secondary" }, [
-          _vm._v("Close at: " + _vm._s(_vm.itemInfo.end_time))
+          _vm._v("Closes at: " + _vm._s(_vm.itemInfo.end_time))
         ]),
         _vm._v(" "),
         _c("h5", { staticClass: "mt-5" }, [_vm._v("Description")]),
@@ -39022,19 +39123,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("form", { staticClass: "form-inline my-3" }, [
-      _c("div", { staticClass: "form-group mr-3 mb-2" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { type: "text", placeholder: "Place your bid" }
-        })
-      ]),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-primary mb-2", attrs: { type: "submit" } },
-        [_vm._v("Bid")]
-      )
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [_vm._v("$")])
     ])
   },
   function() {
@@ -39082,7 +39172,7 @@ var render = function() {
               "background-image:url(./images/cat_" +
               _vm.item.category_id +
               ".png)",
-            attrs: { to: "/item/" + _vm.item.id }
+            attrs: { to: "/item/" + _vm.item.id, title: _vm.item.title }
           })
         ],
         1
@@ -39093,7 +39183,7 @@ var render = function() {
           _vm._v(
             _vm._s(
               _vm.categories[_vm.item.category_id - 1].name +
-                ": " +
+                " | " +
                 _vm.item.title
             )
           )
@@ -39102,7 +39192,7 @@ var render = function() {
       _vm._v(" "),
       _c("figcaption", { staticClass: "figure-caption mt-1 text-truncate " }, [
         _c("span", { staticClass: "float-right text-danger" }, [
-          _vm._v("$" + _vm._s(_vm.item.price))
+          _vm._v("$" + _vm._s(_vm.item.currentBid || _vm.item.price))
         ]),
         _c("span", { staticClass: "text-info" }, [
           _vm._v(_vm._s(_vm.item.quantiti) + " KG")
@@ -39479,7 +39569,7 @@ if (API_TOKEN) {
   window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + API_TOKEN;
 }
 
-window.axios.defaults.baseURL = './';
+window.axios.defaults.baseURL = './api/';
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.prototype.$http = window.axios;
 /**
  * The following block of code may be used to automatically register your
