@@ -2,17 +2,20 @@
 
 This is WEB701 practice site using Laravel framwork. Redis and nodejs are required.
 
--- Generate a CRSF key
-php artisan key:generate
+### Generate a CRSF key
+<code>php artisan key:generate</code>
 
--- Migrate database
-php artisan migrate
+### Migrate database
+<code>php artisan migrate</code> 
 
--- Generate mock data
-php artisan db:seed
+### Generate mock data
+<code>php artisan db:seed</code> 
 
--- Make data to look more real
-delete items from items join users on items.user_id = users.id where users.is_grower = 0;
+### Make data more real
+<code>delete items from items join users on items.user_id = users.id where users.is_grower = 0;</code> 
 
-php artisan migrate:refresh      Reset and re-run all migrations
-php artisan migrate:reset        Rollback all database migrations
+### Reset and re-run all migrations
+<code>php artisan migrate:refresh</code>      
+
+### Rollback all database migrations
+<code>php artisan migrate:reset </code>       
