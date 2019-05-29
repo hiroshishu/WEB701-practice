@@ -33,6 +33,24 @@
             </form>
         </div>
 
+        <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" @click="refresh">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Information Updated!</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="refresh">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </dashboard-layout>
 </template>
 
@@ -64,14 +82,20 @@ export default {
 
             if(!this.contactPhone) {
                 this.errors.push('Phone field is required.')
+            }else if(this.contactPhone.length > 100){
+                this.errors.push('The length of Phone field must less than 100 letters.')
             }
 
             if(!this.contactAddress) {
                 this.errors.push('Address field is required.')
+            }else if(this.contactAddress.length > 100){
+                this.errors.push('The length of Address field must less than 100 letters.')
             }
 
             if(!this.intro) {
                 this.errors.push('Introduction field is required.')
+            }else if(this.intro.length > 250){
+                this.errors.push('The length of Introduction field must less than 250 letters.')
             }
 
             if(!this.errors.length) {
@@ -81,8 +105,11 @@ export default {
                     intro:      this.intro,
                     is_grower:  1
                 }).then(()=>{
-                    location.reload();
-                    this.submitClick = false;
+                    $('#myModal').modal({
+                        show: true,
+                        backdrop: 'static'
+                    });
+                    this.submitClick = false
                 }, ()=>{
                     this.submitClick = false;
                 }).catch(e=>{
@@ -90,6 +117,9 @@ export default {
                 })
             }
 
+        },
+        refresh() {
+            setTimeout(()=>{location.reload()}, 300);
         }
     }
 }

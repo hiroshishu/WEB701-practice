@@ -50,9 +50,6 @@ Vue.prototype.$http = window.axios;
 
 import router from './routes';
 import VueRouter from 'vue-router';
-import VueStripeCheckout from 'vue-stripe-checkout';
-
-Vue.use(VueStripeCheckout, 'pk_test_0dBOQtop0iNXWajyUgcAMbUT');
 Vue.use(VueRouter)
 
 function twoDigit(d) {
@@ -77,6 +74,7 @@ function dateOffset(val) {
 Vue.filter('dateOffset', function (value) {
     return formatDate(dateOffset(value));
 })
+
 
 const app = new Vue({
     el: '#app',

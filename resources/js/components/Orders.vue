@@ -43,11 +43,6 @@ export default {
     },
 
     methods: {
-        async checkout () {
-        // token - is the token object
-        // args - is an object containing the billing and shipping address if enabled
-        const { token, args } = await this.$refs.checkoutRef.open();
-        },
     }
     
 }
