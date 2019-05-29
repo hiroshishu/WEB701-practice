@@ -187,7 +187,6 @@ export default {
         },
         checkForm(e){
             this.errors = [];
-            this.submitClick = true;
             e.preventDefault();
 
             if(!this.itemTitle) {
@@ -215,6 +214,7 @@ export default {
             }
 
             if(!this.errors.length) {
+                this.submitClick = true;
                 this.$http.post('items', {
                     user_id:        USER_ID,
                     category_id:    this.itemCat, 

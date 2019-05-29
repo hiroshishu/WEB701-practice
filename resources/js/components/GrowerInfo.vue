@@ -77,7 +77,6 @@ export default {
     methods: {
         checkForm(evt){
             this.errors = [];
-            this.submitClick = true;
             evt.preventDefault();
 
             if(!this.contactPhone) {
@@ -99,6 +98,7 @@ export default {
             }
 
             if(!this.errors.length) {
+                this.submitClick = true;
                 this.$http.post('updateInfo', {
                     phone:      this.contactPhone,
                     address:    this.contactAddress,
