@@ -39,13 +39,19 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <router-link class="nav-link" to="/marketplace">Marketplace</router-link>
+                        <li class="nav-item mr-2">
+                            <a class="nav-link text-red" href="./#/berries" :class="{'text-danger': $route.name=='berries'}"><i class="fas fa-holly-berry mr-2"></i>Berries</a>
                         </li>
-
+                        <li class="nav-item mr-2">
+                            <a class="nav-link" href="./#/marketplace" :class="{'text-danger': $route.path.match(/marketplace|item/)}"><i class="fas fa-shopping-basket mr-2"></i>Marketplace</a>
+                        </li>
+                        <li class="nav-item mr-2">
+                            <a class="nav-link" href="./#/growers" :class="{'text-danger': $route.name=='growers'}"><i class="fas fa-user-ninja mr-2"></i>Growers</a>
+                        </li>
+                        
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
+                            <li class="nav-item ml-4">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
@@ -55,7 +61,7 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <router-link class="nav-link" to="/dashboard">Dashboard</router-link>
+                                <router-link class="nav-link" to="/dashboard" :class="{'text-danger': $route.path.match(/dashboard|addnew|auctions|info|orders/)}"><i class="fas fa-columns mr-2"></i>Dashboard</router-link>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

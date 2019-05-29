@@ -65,6 +65,26 @@
                             </div>
                         </div>
                     </form>
+
+                    <hr class="my-4">
+                        <h6 style="display:inline">Fast Login</h6>
+                        <form method="POST" action="{{ route('login') }}" class="ml-5" style="display:inline">
+                        @csrf
+                            <input type="hidden" name="password" value="password" >
+                            <input type="hidden" name="email" value="{{App\User::where('is_grower', '1')->first()->email}}" >
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('Login as a grower') }}
+                            </button>
+                        </form>
+
+                        <form method="POST" action="{{ route('login') }}" class="ml-5" style="display:inline">
+                        @csrf
+                            <input type="hidden" name="password" value="password" >
+                            <input type="hidden" name="email" value="{{App\User::where('is_grower', '0')->first()->email}}" >
+                            <button type="submit" class="btn btn-primary">
+                                {{ __('Login as a buyer') }}
+                            </button>
+                        </form>
                 </div>
             </div>
         </div>

@@ -27,7 +27,7 @@
                     </div>
                 </div>
 
-                <Pagination :item-list="itemList" :curr-cat="currCat"></Pagination>
+                <Pagination :item-list="itemList" :curr-cat="currCat" v-if="itemList.last_page>1"></Pagination>
             </div>
         </div>
     </div>

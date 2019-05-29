@@ -11,6 +11,21 @@ import Vue from 'vue';
 if(API_TOKEN) {
     window.axios.defaults.headers.common['Authorization'] = 'Bearer '+API_TOKEN;
 }
+
+window.axios.interceptors.response.use(
+    response => {
+        return response;
+    },
+    error => {
+        if (error.response) {
+            switch (error.response.status) {
+                case 401:
+                    location.href = './login'
+            }
+        }
+        return Promise.reject(error.response.data) 
+    });
+
 window.axios.defaults.baseURL = './api/';
 Vue.prototype.$http = window.axios;
 
@@ -35,8 +50,33 @@ Vue.prototype.$http = window.axios;
 
 import router from './routes';
 import VueRouter from 'vue-router';
+import VueStripeCheckout from 'vue-stripe-checkout';
 
+Vue.use(VueStripeCheckout, 'pk_test_0dBOQtop0iNXWajyUgcAMbUT');
 Vue.use(VueRouter)
+
+function twoDigit(d) {
+    return d<10?'0'+d:d;
+}
+
+function formatDate(date) {
+    return date.getFullYear() + '/' + 
+        twoDigit(date.getMonth() + 1) + '/' + 
+        twoDigit(date.getDate()) + ' ' + 
+        twoDigit(date.getHours()) + ':' + 
+        twoDigit(date.getMinutes()) + ':' + 
+        twoDigit(date.getSeconds());
+}
+
+function dateOffset(val) {
+    var time = new Date(val.replace(/-/g, '/')), _time = time.getTime(),
+    offset = time.getTimezoneOffset();
+    return new Date(_time - offset * 60 * 1000);
+}
+
+Vue.filter('dateOffset', function (value) {
+    return formatDate(dateOffset(value));
+})
 
 const app = new Vue({
     el: '#app',

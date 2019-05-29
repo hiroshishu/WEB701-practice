@@ -10,7 +10,10 @@
                     <router-link to="/addnew">Add Auction</router-link>
                 </dd>
                 <dd>
-                    <router-link to="/actions">Auctions</router-link>
+                    <router-link to="/auctions">Auctions</router-link>
+                </dd>
+                <dd>
+                    <router-link to="/info">Info</router-link>
                 </dd>
                 <dt class="border-bottom border-grey mb-2 mt-4"><h6>Buyers</h6></dt>
                 <dd>

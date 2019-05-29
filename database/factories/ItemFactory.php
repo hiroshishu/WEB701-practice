@@ -14,9 +14,6 @@ $factory->define(App\Item::class, function (Faker $faker) {
         'size'          => $faker->numberBetween($min=1, $max=5),
         'color'         => $faker->numberBetween($min=1, $max=5),
         'flavor'        => $faker->numberBetween($min=1, $max=5),
-        'price'         => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 9999),
-
-        'phone'         => $faker->phoneNumber,
-        'address'       => $faker->address
+        'price'         => $faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 9999)
     ];
 });

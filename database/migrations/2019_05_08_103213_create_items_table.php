@@ -27,9 +27,6 @@ class CreateItemsTable extends Migration
             $table->integer('flavor')->unsigned();
             $table->decimal('price', 10, 2)->unsigned();
 
-            $table->string('phone');
-            $table->string('address');
-
             $table->softDeletes();
             $table->timestamps();
 

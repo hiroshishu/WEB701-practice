@@ -22,12 +22,20 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-        $lastest = Item::latest()->where('end_time', '>', now());
-        $lItems = Request('cat') ? $lastest->where('category_id', Request('cat'))->paginate(15) : $lastest->paginate(15);
-        foreach ($lItems as $k => $v) {
-            $lItems[$k]->currentBid = $lItems[$k]->currentBid() ? $lItems[$k]->currentBid()->amount : 0;;
+        $compare = Request('hasExpired') ? '<=' : '>';
+        $lastest = Item::latest()->where('end_time', $compare , now()) ;
+
+        if(Request('user_id')) {
+            $lItems = $lastest->where('user_id', Request('user_id'))->paginate(15);
+        } else {
+            $lItems = Request('cat') ? $lastest->where('category_id', Request('cat'))->paginate(15) : $lastest->paginate(15);
         }
-        return $lItems;
+
+        foreach ($lItems as $k => $v) {
+            $lItems[$k]->currentBid = $lItems[$k]->currentBid() ? $lItems[$k]->currentBid()->amount : 0;
+            $lItems[$k]->highBidder = $lItems[$k]->highBidder() ;
+        }
+        return $lItems; 
     }
 
     /**
@@ -56,8 +64,6 @@ class ItemController extends Controller
             'size'          =>  'required',
             'color'         =>  'required',
             'flavor'        =>  'required',
-            'phone'         =>  'nullable',
-            'address'       =>  'required',
             'end_time'      =>  'required',
             'price'         =>  'required',
             'quantiti'      =>  'required',
@@ -81,6 +87,9 @@ class ItemController extends Controller
     {
         $item = Item::find($id);
         $item->user_name = $item->user->name;
+        $item->user_phone = $item->user->phone;
+        $item->user_address = $item->user->address;
+        $item->user_email = $item->user->email;
         $item->currentBid = $item->currentBid() ? $item->currentBid()->amount : 0;
         return $item;
     }
@@ -114,8 +123,11 @@ class ItemController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Task $task)
+    public function endBid($id)
     {
-        //
+        $item = Item::find($id);
+        $item->end_time = Carbon::now();
+        $item->save();
+        return json_encode(array('code'=>200));
     }
 }
