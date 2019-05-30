@@ -13,7 +13,7 @@
                     <p class="card-text">{{grower.intro}}</p>
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted">Registerd at {{grower.created_at}}</small>
+                    <small class="text-muted">Registerd at {{grower.created_at|dateOffset}}</small>
                 </div>
             </div>
         </div>

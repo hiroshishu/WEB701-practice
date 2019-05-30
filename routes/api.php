@@ -29,7 +29,7 @@ Route::post('updateInfo', function(){
 })->middleware('auth:api');
 
 Route::get('growers', function(){
-    return App\User::where('is_grower', '1')->paginate(8);
+    return App\User::where('is_grower', '1')->orderBy('created_at', 'desc')->paginate(8);
 });
 
 Route::get('categories', function(){

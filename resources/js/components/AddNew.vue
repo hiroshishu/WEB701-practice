@@ -228,7 +228,7 @@ export default {
                     color:          this.itemColor,
                     flavor:         this.itemFlavor
                 }).then(()=>{
-                    this.$router.push('/marketplace');
+                    this.$router.push('/auctions');
                     this.submitClick = false;
                 }, ()=>{
                     this.submitClick = false;

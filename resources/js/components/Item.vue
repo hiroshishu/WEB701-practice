@@ -21,7 +21,7 @@
                         <button type="submit" class="btn btn-primary" @click="makeBid">Bid</button>
                     </form>
                     <p class="text-danger" v-if="bidError">{{bidError}}</p>
-                    <p class="text-secondary">Closes at: {{itemInfo.end_time||''|dateOffset}}</p>
+                    <p class="text-secondary">Closes at: <span v-text="itemInfo.end_time||''|dateOffset"></span></p>
                 </div>
 
                 <div v-else>
